@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/Robot.dir/Robot.cc.o CMakeFiles/Robot.dir/QTRSensors/QTRSensors.cc.o CMakeFiles/Robot.dir/SPI/SPIUtils.cc.o CMakeFiles/Robot.dir/Dagu/Dagu.cc.o  -o Robot -rdynamic 
