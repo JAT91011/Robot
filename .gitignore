@@ -1,0 +1,4 @@
+.DS_Store
+debug/
+cmake/*
+!cmake/CMakeLists.txt
