@@ -17,17 +17,13 @@ SPIUtils::~SPIUtils()
 
 SPIUtils::SPIUtils(int channel)
 {
-	cout << "[SPI] Debug: Constructor." << endl;
+	cout << "[SPI] Debug: Constructor in channel: " << channel << endl;
 	this->reading = false;
 	this->stopped = true;
+	this->channel = channel;
 
 	int fh = wiringPiSPISetup(channel, 1000000);
-	if (fh != -1)
-	{
-		cout << "[SPI] Debug: SPI setup completed." << endl;
-		this->channel = channel;
-	}
-	else
+	if (wiringPiSPISetup(channel, 1000000) < 0)
 	{
 		cout << "[SPI] Error: An error ocurred initializing SPI module." << endl;
 	}
@@ -57,11 +53,11 @@ void SPIUtils::read_volts()
 	while (this->reading)
 	{
 		unsigned char spiData [2];
-		if (this->channel = 0) 
+		if (this->channel == 0) 
 		{
 			spiData[0] = 0b11010000;
 		} else {
-			spiData[1] = 0b11110000;
+			spiData[0] = 0b11110000;
 		}
 		spiData[1] = 0;
 
@@ -70,7 +66,7 @@ void SPIUtils::read_volts()
 			int data = ((spiData [0] << 7) | (spiData [1] >> 1)) & 0x3FF;
 			this->volts = (data * 3.3) / 1023.0;
 		}
-		this_thread::sleep_for(chrono::milliseconds(30));
+		this_thread::sleep_for(chrono::milliseconds(50));
 	}
 	this->stopped = true;
 }

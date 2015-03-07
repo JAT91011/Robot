@@ -19,7 +19,7 @@ int main(void) {
 		cout << "[Test] Info: Read distance: " << fixed << d << endl;
 		double p = distance.get_percent();
 		cout << "[Test] Info: Read percent: " << fixed << p << endl;
-		this_thread::sleep_for(chrono::milliseconds(50));
+		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 	distance.stop_reading();
 	return 0;

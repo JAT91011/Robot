@@ -19,7 +19,7 @@ int main(void) {
 		cout << "[Test] Info: Read volts: " << fixed << v << endl;
 		double p = battery.get_percent();
 		cout << "[Test] Info: Read percent: " << fixed << p << endl;
-		this_thread::sleep_for(chrono::milliseconds(50));
+		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 	battery.stop_reading();
 	return 0;
