@@ -1,5 +1,5 @@
 #include "Robot.h"
-#include "Dagu/Dagu.h"
+#include "Chassis/Chassis.h"
 #include "SPI/SPIUtils.h"
 #include "QTRSensors/QTRSensors.h"
 #include "constants.h"
@@ -12,8 +12,8 @@
 
 void my_handler(int s){
 	cout << "[Robot] Closing..." << endl;
-	Dagu dagu;
-	dagu.stop();
+	Chassis Chassis;
+	Chassis.stop();
 	exit(1);
 }
 
@@ -28,8 +28,8 @@ int main(void)
 	}
 
 	cout << "[Robot] Starting" << endl;
-	cout << "[Robot] Creating Dagu object" << endl;
-	Dagu dagu;
+	cout << "[Robot] Creating Chassis object" << endl;
+	Chassis chassis;
 
 	cout << "[Robot] Creating IR object" << endl;
 	array<int, 8> pines {GPIO_QTR_SENSOR_0, GPIO_QTR_SENSOR_1, GPIO_QTR_SENSOR_2, GPIO_QTR_SENSOR_3, GPIO_QTR_SENSOR_4, GPIO_QTR_SENSOR_5, GPIO_QTR_SENSOR_6, GPIO_QTR_SENSOR_7};
@@ -47,7 +47,7 @@ int main(void)
     	int m0Speed = ROBOT_BASE_SPEED + speed;
     	int m1Speed = ROBOT_BASE_SPEED - speed;
 
-    	dagu.right_forward(m1Speed);
-    	dagu.left_forward(m0Speed);
+    	chassis.right_forward(m1Speed);
+    	chassis.left_forward(m0Speed);
     }
 }

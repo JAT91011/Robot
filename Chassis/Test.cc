@@ -1,4 +1,4 @@
-#include "Dagu.h"
+#include "Chassis.h"
 
 #include <wiringPi.h> 
 #include <iostream>
@@ -17,35 +17,35 @@ int main(void)
 	}
 
 	cout << "[Test] Starting" << endl;
-	cout << "[Test] Creating Dagu object" << endl;
+	cout << "[Test] Creating Chassis object" << endl;
 	
-	Dagu Dagu;
+	Chassis Chassis;
 
 	while(1) 
 	{
 		string opcion = "";
 		int speed = ROBOT_BASE_SPEED;
-		cout << "Selecciona una opción (W - Adelante, A - Izquierda, D - Derecha, S - Atras): ";
+		cout << "Selecciona una opción (W - Adelante, A - Izquierda, D - Derecha, S - Atras, Q - Parar): ";
 		getline (cin, opcion);
 		if(opcion == "W") {
 			cout << "[Test] Forward" << endl;
-			Dagu.left_forward(speed);
-			Dagu.right_forward(speed);
+			Chassis.left_forward(speed);
+			Chassis.right_forward(speed);
 		} else if(opcion == "A") {
 			cout << "[Test] Left" << endl;
-			Dagu.right_forward(speed);
-			Dagu.left_backward(speed);
+			Chassis.right_forward(speed);
+			Chassis.left_backward(speed);
 		} else if(opcion == "D") {
 			cout << "[Test] Right" << endl;
-			Dagu.left_forward(speed);
-			Dagu.right_backward(speed);
+			Chassis.left_forward(speed);
+			Chassis.right_backward(speed);
 		} else if(opcion == "S") {
 			cout << "[Test] Backward" << endl;
-			Dagu.left_backward(speed);
-			Dagu.right_backward(speed);
+			Chassis.left_backward(speed);
+			Chassis.right_backward(speed);
 		} else if(opcion == "Q") {
 			cout << "[Test] Stop" << endl;
-			Dagu.stop();
+			Chassis.stop();
 		}		
 	}
 	return 0;
