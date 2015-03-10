@@ -22,7 +22,6 @@ SPIUtils::SPIUtils(int channel)
 	this->stopped = true;
 	this->channel = channel;
 
-	int fh = wiringPiSPISetup(channel, 1000000);
 	if (wiringPiSPISetup(channel, 1000000) < 0)
 	{
 		cout << "[SPI] Error: An error ocurred initializing SPI module." << endl;
@@ -52,7 +51,7 @@ void SPIUtils::read_volts()
 {
 	while (this->reading)
 	{
-		unsigned char spiData [2];
+		uint8_t spiData [2];
 		if (this->channel == 0) 
 		{
 			spiData[0] = 0b11010000;
