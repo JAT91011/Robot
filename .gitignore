@@ -1,5 +1,16 @@
-**/**/.DS_Store
-**/**/.AppleDouble
-debug/
-cmake/*
-!cmake/CMakeLists.txt
+.DS_Store
+.AppleDouble
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.TemporaryItems
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
