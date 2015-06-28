@@ -1,0 +1,108 @@
+#!/bin/bash
+#/etc/init.d/robotDaemon
+
+### BEGIN INIT INFO
+# Provides:				robotDaemon
+# Required-Start: 		$local_fs $network $syslog
+# Required-Stop:		
+# Default-Start:		2 3 4 5
+# Default-Stop:			0 1 6
+# Short-Description:	Inicia el programa del robot
+# Description:			Lanza el programa de robot, que permanecera ejecutandose en segundo plano de forma indefinida
+### END INIT INFO
+
+NAME=robotDaemon
+EXEC=Robot
+EXEC_DIR=/home/pi/Robot
+
+rojo='\e[0;31m'
+verde='\e[0;32m'
+NC='\e[0m'
+
+function iniciar {
+	echo -n "Iniciando $NAME... "
+	start-stop-daemon --start --pidfile /var/run/$NAME.pid --make-pidfile --background -N -20 --exec $EXEC_DIR/$EXEC
+	EC=$?
+	case "$EC" in
+		"0")
+			echo -e "[${verde}OK${NC}]"
+			;;
+
+		"1")
+			echo -e "\nEl proceso $NAME ya se esta ejecutando, no se realiza ninguna accion"
+			;;
+
+		*)
+			echo -e "\n${rojo}ERROR${NC}: El proceso $NAME no pudo ser iniciado - error code: $EC"
+			exit 1
+			;;
+	esac
+}
+
+function finalizar {
+	echo -n "Deteniendo $NAME... "	
+	start-stop-daemon --stop --pidfile /var/run/$NAME.pid
+	EC=$?
+	case "$EC" in
+		"0")
+			rm /var/run/$NAME.pid
+			echo -e "[${verde}OK${NC}]"
+			;;
+
+		"1")
+			echo -e "\nEl proceso $NAME no se esta ejecutando, no se realiza ninuna accion"
+			;;
+
+		*)
+			echo -e "\n${rojo}ERROR${NC}: No se pudo detener $NAME - error code $EC"
+			exit 1
+			;;
+	esac
+}
+
+case "$1" in
+	start)
+		iniciar
+		;;
+
+	stop)
+		finalizar
+		;;
+
+	restart)
+		finalizar
+		iniciar
+		;;
+
+	status)
+		start-stop-daemon --status --pidfile /var/run/$NAME.pid
+		EC=$?
+		case "$EC" in
+			"0")
+				echo "El proceso $NAME se esta ejecutando"
+				;;
+
+			"1")
+				echo "El proceso $NAME no se esta ejecutando, pero existe el fichero /var/run/$NAME.pid"
+				;;
+
+		        3)
+				echo "El proceso $NAME no se esta ejecutando"
+				;;
+
+			"4")
+				echo "${rojo}ERROR${NC}: No se pudo determinar el estado del proceso $NAME - error code: $EC"
+				;;
+
+			*)
+				echo "${rojo}ERROR${NC}: No se pudo determinar el estado del proceso por un error desconocido - error code: $EC"
+				;;
+		esac
+		;;
+
+	*)
+		echo "Uso correcto: $0 {start|stop|restart|status}"
+		exit 1
+esac
+
+	
